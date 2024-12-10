@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 21
       - run: npm ci
-      - run: npm build
+      - run: npm run build
       - uses: unfor19/install-aws-cli-action@v1
       - run: aws s3 cp dist/ s3://fdd.hbo-ict.resources/2425/lmfehres --recursive
         env:
