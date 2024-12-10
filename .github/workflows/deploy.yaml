@@ -18,14 +18,14 @@ jobs:
         uses: swinton/screenshot-website@v1.x
         with:
           source: http://localhost:4321/2425/lmfehres
-          destination: screenshot.jpg
+          destination: /tmp/screenshot.jpg
           height: 628
           width: 880
       - name: Upload Screenshot
         uses: actions/upload-artifact@v4
         with:
           name: screenshot-jpg
-          path: screenshot.jpg
+          path: /tmp/screenshot.jpg
 
   deploy:
     name: "🔧 Build & Deploy"
