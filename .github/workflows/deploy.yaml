@@ -1,0 +1,20 @@
+on:
+  - push
+name: "🚀 Deploy to FDD S3"
+
+jobs:
+  deploy:
+    name: "🔧 Build & Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - run: npm ci
+      - run: npm build
+      - uses: unfor19/install-aws-cli-action@v1
+      - run: aws s3 cp dist/ s3://fdd.hbo-ict.resources/2425/lmfehres --recursive
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_SECRET }}
