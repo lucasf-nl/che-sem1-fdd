@@ -3,6 +3,25 @@ on:
 name: "🚀 Deploy to FDD S3"
 
 jobs:
+  screenshot:
+    name: "📷 Take screenshot of homepage"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - run: npm ci
+      - run: npm run build
+      - run: npm run start &
+      - name: Screenshot Website
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: http://localhost:1234/2425/lmfehres
+          destination: screenshot.jpg
+          height: 628
+          width: 880
+
   deploy:
     name: "🔧 Build & Deploy"
     runs-on: ubuntu-latest
