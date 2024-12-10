@@ -1,0 +1,14 @@
+---
+import clsx from "clsx";
+
+const { className = "", component = "div" } = Astro.props;
+const Component = component;
+---
+
+<div class={clsx(className, "w-full py-5")}>
+    <Component class={clsx(className,
+        "py-0 my-0 mx-auto box-border w-full max-w-5xl"
+    )}>
+        <slot />
+    </Component>
+</div>

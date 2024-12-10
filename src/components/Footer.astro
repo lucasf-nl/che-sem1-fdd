@@ -1,0 +1,22 @@
+---
+import FooterSegment from "./FooterSegment.astro"
+import FooterLink from "./FooterLink.astro"
+import PaddedContentBox from "./PaddedContentBox.astro";
+---
+
+<PaddedContentBox is="footer" className="flex flex-row justify-start gap-8">
+    <nav>
+        <FooterSegment title="Sitemap">
+            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+        </FooterSegment>
+    </nav>
+
+    <FooterSegment title="Extern">
+        <FooterLink name="GitHub" icon="simple-icons:github" href="https://github.com/lucasf-nl/che-sem1-fdd" />
+        <FooterLink name="LinkedIn" icon="simple-icons:linkedin" href="https://www.linkedin.com/in/lucas-fehres/" />
+        <FooterLink name="CHE" icon="simple-icons:w3schools" href="https://che.nl" />
+        <FooterLink name="CHE FDD" icon="simple-icons:w3schools" href="/" />
+    </FooterSegment>
+</PaddedContentBox>
