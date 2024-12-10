@@ -18,7 +18,7 @@ jobs:
         uses: swinton/screenshot-website@v1.x
         with:
           source: http://localhost:4321/2425/lmfehres
-          destination: /screenshot.jpg
+          destination: screenshot.jpg
           height: 628
           width: 880
       - name: Upload Screenshot
