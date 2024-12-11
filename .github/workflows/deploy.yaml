@@ -19,8 +19,8 @@ jobs:
         with:
           source: http://localhost:4321/2425/lmfehres
           destination: screenshot.jpg
-          height: 1256
-          width: 1760
+          height: 785
+          width: 1100
       - name: Upload Screenshot
         uses: actions/upload-artifact@v4
         with:
