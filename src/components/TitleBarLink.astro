@@ -1,0 +1,13 @@
+---
+import clsx from 'clsx';
+
+const { is, name } = Astro.props;
+// i love jsx, why is this even possible
+const Component = is;
+
+const active = Astro.url.pathname == Astro.props.href;
+---
+
+<Component {...Astro.props} class={clsx({ "text-white font-medium": active }, Astro.props.class)}>
+    <span><slot /></span>
+</Component>
