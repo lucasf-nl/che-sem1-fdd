@@ -4,19 +4,30 @@ import FooterLink from "./FooterLink.astro"
 import PaddedContentBox from "./PaddedContentBox.astro";
 ---
 
-<PaddedContentBox is="footer" className="flex flex-row justify-start gap-8">
-    <nav>
-        <FooterSegment title="Sitemap">
-            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
-            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
-            <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
-        </FooterSegment>
-    </nav>
+<PaddedContentBox is="footer" class="flex flex-row justify-between gap-16">
+    <div class="flex flex-row gap-8 min-w-fit">
+        <nav>
+            <FooterSegment title="Sitemap">
+                <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+                <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+                <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+            </FooterSegment>
+        </nav>
 
-    <FooterSegment title="Extern">
-        <FooterLink name="GitHub" icon="simple-icons:github" href="https://github.com/lucasf-nl/che-sem1-fdd" />
-        <FooterLink name="LinkedIn" icon="simple-icons:linkedin" href="https://www.linkedin.com/in/lucas-fehres/" />
-        <FooterLink name="CHE" icon="simple-icons:w3schools" href="https://che.nl" />
-        <FooterLink name="CHE FDD" icon="simple-icons:w3schools" href="/" />
-    </FooterSegment>
+        <FooterSegment title="Extern">
+            <FooterLink name="GitHub" icon="simple-icons:github" href="https://github.com/lucasf-nl/che-sem1-fdd" />
+            <FooterLink name="LinkedIn" icon="simple-icons:linkedin" href="https://www.linkedin.com/in/lucas-fehres/" />
+            <FooterLink name="CHE" icon="simple-icons:w3schools" href="https://che.nl" />
+            <FooterLink name="CHE FDD" icon="simple-icons:w3schools" href="/" />
+        </FooterSegment>
+    </div>
+
+    <div class="flex flex-col text-white text-end">
+        <!--TODO: Semantics-->
+        <span class="text-lg">Lucas F.</span>
+        <p>
+            Een website geproduceerd bij het vak FDD (Frontend Design & Development)
+            in semester 1 van de HBO-ICT opleiding op de CHE.
+        </p>
+    </div>
 </PaddedContentBox>
