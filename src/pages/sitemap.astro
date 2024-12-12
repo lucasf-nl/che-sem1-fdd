@@ -10,6 +10,12 @@ const makingwebsite_articles = Object.values(makingwebsite_content)
 
 <Layout>
     <PaddedContentBox class="bg-white">
-        {makingwebsite_articles.map((article: any) => <p>{article.title}</p>)}
+        {makingwebsite_articles.map((article: any) =>
+                <a
+                        href={
+                            article.url.replace("src/", "/2425/lmfehres/").replace(".mdx", "")
+                        }
+                >{article.title}</a>
+        )}
     </PaddedContentBox>
 </Layout>

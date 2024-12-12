@@ -1,0 +1,26 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PaddedContentBox from "../../../components/PaddedContentBox.astro";
+export function getStaticPaths() {
+    return [
+        {params: {type: 'makingwebsite', slug: 'test'}},
+    ];
+}
+
+const { type, slug } = Astro.params;
+
+const matches = import.meta.glob(`../../../content/**/*.mdx`, { eager: true });
+const m = Object.values(matches);
+const content = m.filter((c: any) => c.url == `src/content/${type}/${slug}.mdx`)[0] as any;
+const Content = content.Content;
+---
+
+<!--TODO: Replace Tailwind Prose Typography with a custom solution-->
+
+<Layout>
+    <PaddedContentBox class="bg-white">
+        <article class="prose">
+            <Content />
+        </article>
+    </PaddedContentBox>
+</Layout>

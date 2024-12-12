@@ -4,11 +4,11 @@ import FooterLink from "./FooterLink.astro"
 import PaddedContentBox from "./PaddedContentBox.astro";
 ---
 
-<PaddedContentBox is="footer" class="flex flex-row justify-between gap-16">
+<PaddedContentBox is="footer" class="flex flex-col lg:flex-row justify-between gap-2 lg:gap-16">
     <div class="flex flex-row gap-8 min-w-fit">
         <nav>
             <FooterSegment title="Algemeen">
-                <FooterLink name="Thuis" icon="material-symbols:home" href="/2425/lmfehres" />
+                <FooterLink name="Start" icon="material-symbols:home" href="/2425/lmfehres" />
                 <FooterLink name="Sitemap" icon="material-symbols:map-search" href="/2425/lmfehres/sitemap" />
             </FooterSegment>
         </nav>
@@ -21,7 +21,7 @@ import PaddedContentBox from "./PaddedContentBox.astro";
         </FooterSegment>
     </div>
 
-    <div class="flex flex-col text-white text-end">
+    <div class="flex flex-col text-white lg:text-end">
         <!--TODO: Semantics-->
         <span class="text-2xl">Lucas F.</span>
         <span class="text-lg">2400481</span>
