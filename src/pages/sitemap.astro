@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PaddedContentBox from "../components/PaddedContentBox.astro";
+
+const makingwebsite_content = import.meta.glob('/src/content/makingwebsite/*.mdx',
+    {eager: true})
+const makingwebsite_articles = Object.values(makingwebsite_content)
+
+---
+
+<Layout>
+    <PaddedContentBox class="bg-white">
+        {makingwebsite_articles.map((article: any) => <p>{article.title}</p>)}
+    </PaddedContentBox>
+</Layout>
