@@ -1,9 +1,12 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import PaddedContentBox from "../../../components/PaddedContentBox.astro";
+
+// TODO: Automatically import this
 export function getStaticPaths() {
     return [
         {params: {type: 'makingwebsite', slug: 'test'}},
+        {params: {type: 'makingwebsite', slug: 'devops'}},
     ];
 }
 
