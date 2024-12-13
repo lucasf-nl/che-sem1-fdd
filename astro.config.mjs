@@ -11,5 +11,8 @@ export default defineConfig({
   integrations: [tailwind(), icon(), mdx()],
   experimental: {
     svg: true
+  },
+  prefetch: {
+    prefetchAll: true
   }
 });
