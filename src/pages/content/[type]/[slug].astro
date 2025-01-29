@@ -2,12 +2,19 @@
 import Layout from "../../../layouts/Layout.astro";
 import PaddedContentBox from "../../../components/PaddedContentBox.astro";
 
-// TODO: Automatically import this
 export function getStaticPaths() {
-    return [
-        {params: {type: 'makingwebsite', slug: 'test'}},
-        {params: {type: 'makingwebsite', slug: 'devops'}},
-    ];
+    const matches = import.meta.glob(`../../../content/**/*.mdx`, { eager: true });
+    const values = Object.values(matches);
+
+    return values.map((v: any) => {
+        const split_url = v.url.split("/");
+	return {
+	    params: {
+	        type: split_url[2],
+		    slug: split_url[3].replace(".mdx", "")
+	    }
+	}
+    });
 }
 
 const { type, slug } = Astro.params;

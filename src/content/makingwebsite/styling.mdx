@@ -6,7 +6,7 @@ Om websites een kleurtje te geven en geavanceerdere layouts te implementered
 wordt de programmeertaal CSS (Cascading Style Sheets) gebruikt. Omdat CSS
 een nachtmerrie is wordt dit meestal vermijdt of vervangen. Deze website is
 gemaakt met Tailwind CSS, een CSS library (deelbare en herbruikbare
-verzameling code). Tailwind zorgt ervoor dat CSS als `flex flex-col gap-5`
+verzameling code). Tailwind zorgt ervoor dat opaak als `flex flex-col gap-5`
 wordt geschreven in plaats van
 
 ```css
@@ -16,3 +16,9 @@ wordt geschreven in plaats van
   flex-gap: 5em;
 }
 ```
+
+Ook maakt Tailwind het makkelijk om met de hulptool `clsx` selectieve opmaak
+te geven aan onderdelen van de website. Het nadeel van Tailwind is dat er vaak
+erg lange rijen aan Tailwind opmaak ontstaan. Om dit te voorkomen is het
+belangrijk dat vaker voorkomende onderdelen als herbruikbare onderdelen
+worden gebouwd.
