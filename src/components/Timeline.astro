@@ -1,18 +1,22 @@
 ---
 import TimelineBlock from "./TimelineBlock.astro";
+import TimelineOffset from "./TimelineOffset.astro";
+import TimelineFadeSpacer from "./TimelineFadeSpacer.astro";
 ---
 
-<div class="flex flex-row gap-2 w-max min-h-8">
-    <!-- Left container -->
-    <div class="grow my-16"><TimelineBlock/><TimelineBlock/></div>
-    <!-- Ruler -->
-    <div class="w-2 flex flex-col gap-0">
+<!-- CSS grid is so powerful if you can bully it into working -->
+<div class="grid grid-cols-timeline grid-rows-5 h-fit gap-4">
+    <TimelineFadeSpacer />
+    <TimelineFadeSpacer />
+    <div class="w-2 flex flex-col gap-0 row-span-full h-full" style={{ gridColumn: 2 }}>
         <!-- fade in -->
-        <div class="bg-linear-to-b from-amber-500 to-amber-200 w-2 h-16"/>
-        <div class="bg-amber-500 w-2 grow"/>
+        <div class="bg-gradient-to-b from-transparent to-black rounded-t-full w-2 h-16"/>
+        <div class="bg-black w-2 grow min-h-2"/>
         <!-- fade out -->
-        <div class="bg-amber-200 w-2 h-16"/>
+        <div class="bg-gradient-to-b from-black to-transparent rounded-b-full w-2 h-16"/>
     </div>
-    <!-- Right container -->
-    <div class="grow my-16"><TimelineBlock/><TimelineBlock/></div>
+    <TimelineBlock />
+    <TimelineOffset />
+    <TimelineBlock position="right" />
+    <TimelineBlock />
 </div>
