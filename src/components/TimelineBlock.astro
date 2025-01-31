@@ -1,12 +1,20 @@
 ---
 import { clsx } from "clsx";
-const { position = "left" } = Astro.props;
+import type {TimelineObject} from "./TimelineUtil";
+const { object } = Astro.props as { object: TimelineObject };
 ---
 
 <div class={clsx(
     "bg-cyan-400 col-span-1 row-span-2 timeline-block rounded-lg shadow-lg p-4",
-    `timeline-block-${position}`
-)}>Lorem ipsum odor amet</div>
+    `timeline-block-${object.pos}`
+)}>
+    <div class="mb-2 text-lg font-medium">
+        {object["tl-title"]}
+    </div>
+    <p>
+        {object["tl-summary"]}
+    </p>
+</div>
 
 <style>
     /* scss does not accept theme() */
