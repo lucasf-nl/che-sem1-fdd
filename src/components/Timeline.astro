@@ -9,8 +9,9 @@ const m = Object.values(matches);
 
 let objects = m
     .map((v: any) => v as RawTimelineObjectImport)
-    .filter((v: RawTimelineObjectImport) => v.frontmatter['tl-title'] !== undefined)
-    .map((v: RawTimelineObjectImport, i) => ({
+    .filter(v => v.frontmatter['tl-title'] !== undefined)
+    .sort((a, b) => a.frontmatter["tl-pos"] - b.frontmatter["tl-pos"])
+    .map((v, i) => ({
         ...(v.frontmatter as TimelineFrontmatter),
         pos: ((i - 1) % 2 == 1) ? "left" : "right",
         url: v.url
@@ -22,7 +23,7 @@ const first = objects.shift();
 ---
 
 <!-- CSS grid is so powerful if you can bully it into working -->
-<div class="grid grid-cols-timeline grid-rows-6 h-fit gap-4">
+<div class="grid grid-cols-timeline h-fit gap-4" style="grid-template-rows: repeat(18, minmax(0, 1fr));">
     <TimelineFadeSpacer />
     <TimelineFadeSpacer />
     <div class="w-2 flex flex-col gap-0 row-span-full h-full" style={{ gridColumn: 2 }}>
