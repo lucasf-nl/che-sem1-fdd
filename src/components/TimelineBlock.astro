@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components'
 import { clsx } from "clsx";
 import type {TimelineObject} from "./TimelineUtil";
 const { object } = Astro.props as { object: TimelineObject };
@@ -8,9 +9,15 @@ const { object } = Astro.props as { object: TimelineObject };
     "bg-cyan-400 col-span-1 row-span-2 timeline-block rounded-lg shadow-lg p-4",
     `timeline-block-${object.pos}`
 )}>
-    <div class="mb-2 text-lg font-medium">
-        {object["tl-title"]}
+    <div class="flex flex-row justify-between">
+        <div class="mb-2 text-lg font-medium">
+            {object["tl-title"]}
+        </div>
+        <a href={
+            object.url.replace("src/", "/2425/lmfehres/").replace(".mdx", "")
+        }><Icon name="material-symbols:arrow-outward" /></a>
     </div>
+
     <p>
         {object["tl-summary"]}
     </p>
