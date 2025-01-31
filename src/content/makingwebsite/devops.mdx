@@ -32,7 +32,7 @@ jobs:
       - run: npm run build
       - run: npm run preview &
       - name: Screenshot Website
-        uses: swinton/screenshot-website@v1.x
+        uses: lucasf-nl/fork-swinton-screenshot-website@main
         with:
           source: http://localhost:4321/2425/lmfehres
           destination: screenshot.jpg
@@ -68,9 +68,13 @@ jobs:
 ```
 
 Ik heb gekozen om de screenshot en deploy fases in aparte jobs te zetten, dit voorkomt
-dat een supplychain attack in de swinton/screenshot-website action invloed heeft op de
-deploy omdat de code opnieuw wordt gedownload en compiled in de deploy fase. Geheimen
-zoals mijn AWS-sleutels zijn veilig bewaart in GitHub Actions.
+dat een supplychain attack in de lucasf-nl/fork-swinton-screenshot-website@main action
+invloed heeft op de deploy omdat de code opnieuw wordt gedownload en compiled in de
+deploy fase. Geheimen zoals mijn AWS-sleutels zijn veilig bewaart in GitHub Actions.
+
+Terwijl ik bezig was met het project brak de originele swinton/screenshot-website action
+door GitHub API-wijzigingen. Hierom heb ik de action geforkt op GitHub en de GitHub API
+dependency eruit gesloopt.
 
 SVG's waren voor mij in S3 geen probleem, Astro zet SVG's namelijk direct in de HTML
 als dit bandbreedte bespaart. Zo is het alsnog statisch zonder JavaScript en voorkomt
