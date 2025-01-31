@@ -11,3 +11,67 @@ aangemaakt.
 Bij dit project heb ik gekozen om een workflow aan te maken die een screenshot van de startpagina
 maakt en de website upload naar S3 (Cloud-opslag dienst van Amazon) als er code binnenkomt in de
 GitHub repository (opslag plek voor code).
+
+Uiteindelijk zag de GitHub Actions workflow er als volgt uit:
+
+```yaml
+on:
+  - push
+name: "🚀 Deploy to FDD S3"
+
+jobs:
+  screenshot:
+    name: "📷 Take screenshot of homepage"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - run: npm ci
+      - run: npm run build
+      - run: npm run preview &
+      - name: Screenshot Website
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: http://localhost:4321/2425/lmfehres
+          destination: screenshot.jpg
+          height: 785
+          width: 1100
+      - name: Upload Screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-jpg
+          path: /home/runner/work/_temp/screenshot.jpg
+
+  deploy:
+    name: "🔧 Build & Deploy"
+    runs-on: ubuntu-latest
+    needs: screenshot
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - run: npm ci
+      - run: npm run build
+      - uses: unfor19/install-aws-cli-action@v1
+      - uses: actions/download-artifact@v4
+        with:
+          name: screenshot-jpg
+          path: dist/screenshot-jpg
+      - run: cp dist/screenshot-jpg/screenshot.jpg dist/thumbnail.jpg
+      - run: aws s3 cp dist/ s3://fdd.hbo-ict.resources/2425/lmfehres --recursive
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_SECRET }}
+```
+
+Ik heb gekozen om de screenshot en deploy fases in aparte jobs te zetten, dit voorkomt
+dat een supplychain attack in de swinton/screenshot-website action invloed heeft op de
+deploy omdat de code opnieuw wordt gedownload en compiled in de deploy fase. Geheimen
+zoals mijn AWS-sleutels zijn veilig bewaart in GitHub Actions.
+
+SVG's waren voor mij in S3 geen probleem, Astro zet SVG's namelijk direct in de HTML
+als dit bandbreedte bespaart. Zo is het alsnog statisch zonder JavaScript en voorkomt
+het ook dat icoontjes pas na de FCP worden geladen en gerenderd.

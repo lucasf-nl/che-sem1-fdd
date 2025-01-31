@@ -1,0 +1,49 @@
+import ReactCounterDemo from "../../components/ReactCounterDemo.jsx";
+import SvelteCounterDemo from "../../components/SvelteCounterDemo.svelte";
+export const title = 'Astro';
+
+# Astro
+
+Astro is een JavaScript en JSX-framework ontworpen voor snelheid en een gemakkelijke
+ontwikkelingservaring. Meestal draait Astro zonder server en compileert het naar
+statische HTML, dit zorgt ervoor dat het vrijwel overal kan worden deployed,
+inclusief Amazon S3. Astro biedt optimalisaties (zoals het inline zetten van SVG's)
+en ondersteunt JSX components zodat een onderdeel, maar 1 keer hoeft worden geschreven.
+
+Een handige functie waar ik veel gebruik van maak, is de ondersteuning van [MDX](./mdx).
+Hierdoor kan ik content schrijven buiten de HTML, maar er ook HTML of Javascript in
+zetten als ik dat wil.
+
+Astro gebruikt de Island architectuur, origineel ontworpen voor E-commerce. Deze
+techniek maakt het mogelijk om op een winkel bijvoorbeeld deze layout te hebben:
+
+<figure className="m-2 p-2 rounded-lg shadow-lg bg-gray-200">
+    <div className="grid grid-cols-3 grid-rows-4 gap-4">
+        <div className="row-span-1 col-span-3 p-2 bg-gray-300 rounded shadow">Header (statisch)</div>
+        <div className="row-span-2 col-span-2 p-2 bg-blue-300 rounded shadow">Foto carousel (interactief island)</div>
+        <div className="row-span-1 col-span-1 p-2 bg-gray-300 rounded shadow">Product informatie (statisch)</div>
+        <div className="row-span-1 col-span-1 p-2 bg-blue-300 rounded shadow">CTA (interactief island)</div>
+        <div className="row-span-1 col-span-3 p-2 bg-gray-300 rounded shadow">Footer (statisch)</div>
+    </div>
+    <figcaption>Voorbeeld E-commerce Island layout (Geschreven met HTML binnen MDX)</figcaption>
+</figure>
+
+Met deze architectuur kunnen onderdelen als de header en footer (globale onderdelen in de
+standaard layout), en de productinformatie (per product statisch in de HTML) meteen
+beschikbaar zijn in de FCP (First Contentful Paint). De foto carousel en CTA's kunnen later
+worden ge-rendered zodra bijvoorbeeld React beschikbaar is. Sommigen frameworks zoals React
+ondersteunen hydration waardoor statische HTML later levendig kan worden gemaakt, maar het
+voordeel van Astro hierbij is dat elk island in een ander framework kan worden geschreven.
+Zoals dit React demo,
+
+<figure className="m-2 p-2 rounded-lg shadow-lg bg-gray-200">
+    <ReactCounterDemo client:visible />
+    <figcaption>React demo, JS wordt pas geladen zodra demo zichtbaar is (React geïmporteerd in MDX)</figcaption>
+</figure>
+
+en dit identieke (maar wel snellere) Svelte demo.
+
+<figure className="m-2 p-2 rounded-lg shadow-lg bg-gray-200">
+    <SvelteCounterDemo client:visible />
+    <figcaption>Svelte demo, JS wordt pas geladen zodra demo zichtbaar is (Svelte geïmporteerd in MDX)</figcaption>
+</figure>
