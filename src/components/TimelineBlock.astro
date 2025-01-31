@@ -8,7 +8,7 @@ const { position = "left" } = Astro.props;
     `timeline-block-${position}`
 )}>Lorem ipsum odor amet</div>
 
-<style>
+<style lang="scss">
     .timeline-block {
         background-color: white;
         position: relative;
@@ -17,29 +17,21 @@ const { position = "left" } = Astro.props;
     }
 
     /* the arrow is a lie */
-    .timeline-block-left::after {
-        content: "";
-        position: absolute;
-        right: -7px;
-        top: 10px;
-        width: 10px;
-        height: 10px;
-        background: white;
-        border-right: 2px solid theme(colors.slate.400);
-        border-bottom: 2px solid theme(colors.slate.400);
-        transform: rotate(-45deg);
+    @mixin timeline-block-pos($pos, $opposite, $rot) {
+        .timeline-block-#{$pos}::after {
+            content: "";
+            position: absolute;
+            #{$opposite}: -7px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-right: 2px solid theme(colors.slate.400);
+            border-bottom: 2px solid theme(colors.slate.400);
+            transform: rotate(#{$rot});
+        }
     }
 
-    .timeline-block-right::after {
-        content: "";
-        position: absolute;
-        left: -7px;
-        top: 10px;
-        width: 10px;
-        height: 10px;
-        background: white;
-        border-right: 2px solid theme(colors.slate.400);
-        border-bottom: 2px solid theme(colors.slate.400);
-        transform: rotate(-225deg);
-    }
+    @include timeline-block-pos("left", right, -45deg);
+    @include timeline-block-pos("right", left, -225deg);
 </style>
