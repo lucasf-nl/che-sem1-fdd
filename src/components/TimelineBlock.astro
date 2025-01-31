@@ -8,7 +8,8 @@ const { position = "left" } = Astro.props;
     `timeline-block-${position}`
 )}>Lorem ipsum odor amet</div>
 
-<style lang="scss">
+<style>
+    /* scss does not accept theme() */
     .timeline-block {
         background-color: white;
         position: relative;
@@ -16,6 +17,18 @@ const { position = "left" } = Astro.props;
         display: inline-block;
     }
 
+    .timeline-block-left::after {
+        border-right: 2px solid theme(colors.slate.400);
+        border-bottom: 2px solid theme(colors.slate.400);
+    }
+
+    .timeline-block-right::after {
+        border-right: 2px solid theme(colors.slate.400);
+        border-bottom: 2px solid theme(colors.slate.400);
+    }
+</style>
+
+<style lang="scss">
     /* the arrow is a lie */
     @mixin timeline-block-pos($pos, $opposite, $rot) {
         .timeline-block-#{$pos}::after {
@@ -26,8 +39,6 @@ const { position = "left" } = Astro.props;
             width: 10px;
             height: 10px;
             background: white;
-            border-right: 2px solid theme(colors.slate.400);
-            border-bottom: 2px solid theme(colors.slate.400);
             transform: rotate(#{$rot});
         }
     }
