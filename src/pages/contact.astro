@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from "../components/ContactForm.svelte"
+import PaddedContentBox from "../components/PaddedContentBox.astro";
+---
+
+<Layout>
+    <PaddedContentBox class="bg-white" small>
+        <ContactForm client:load />
+    </PaddedContentBox>
+</Layout>
