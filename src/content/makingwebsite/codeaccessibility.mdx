@@ -4,4 +4,20 @@ tl-pos: 13
 tl-summary: ''
 ---
 
-Reprehenderit pariatur sit et consectetur aute sint culpa qui sit. Elit voluptate deserunt sunt labore cillum minim duis ullamco commodo occaecat.
+# Toegankelijkheid
+
+Toegankelijkheid is misschien niet belangrijk voor iedereen, maar voor sommigen is het een eis
+om de website te kunnen gebruiken. Daarom is het belangrijk dat websites zich houden aan de
+WCAG (Web Content Accessiblity Guidelines), gebruik maken van ARIA (Accessible Rich
+Internet Applications) en zover mogelijk is, semantische HTML schrijven.
+
+## Zoekbalk
+
+Een zoekbalk (searchbox/-bar) heeft geen semantisch HTML element, meestal wordt het geimplementeerd
+als alleen een tekst input zondertoegankelijkheidsmetadata. Dit zorgt voor problemen met programmas
+zoals schermlezers (leest websites voor), die niet zullen weten wat ze moeten doen met de input.
+Meestal zal een input als deze dan worden voorgelezen als "tekst input". Het toevoegen van de ARIA
+rol searchbox geeft toegankelijkheidsprogrammas de juiste context om te weten hoe ze een element
+moeten presenteren.
+
+<!-- ja ja er is een semantische HTML rol voor een zoekbalk, is maar een voorbeeld -->
