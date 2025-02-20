@@ -8,7 +8,7 @@
     let lastname = $state("");
     let content = $state("");
 
-    function e(i) {
+    function en(i) {
         return encodeURIComponent(i)
     }
 </script>
@@ -25,11 +25,11 @@
         window.open(
             // er bestaan inderdaad betere manieren om een URI op te stellen. maar daar is geen
             // shorthand syntax voor, dus dan krijg je dit :3
-            // voor- en achternaam worden als email headers toegevoegd. zou door een email client
-            // kunnen worden gelezen. ik weet niet zeker of hier een standaard (of een Microsoft ding)
-            // voor is, maar mijn implementatie is er wel.
-            `mailto:lmfehres@student.che.nl?subject=${e(subject)}&body=${e(content)
-            }&x-lmfehres-from-firstname=${e(firstname)}&x-lmfehres-from-lastname=${e(lastname)}`
+            // Voor- en achternaam worden als email headers toegevoegd. zou door een email client
+            // kunnen worden gelezen. in de praktijk gebeurt dat nauwelijks, maar het gaat om het
+            // principe.
+            `mailto:lmfehres@student.che.nl?subject=${en(subject)}&body=${en(content)
+            }&x-lmfehres-from-firstname=${en(firstname)}&x-lmfehres-from-lastname=${en(lastname)}`
         )
     }}>Verzenden</button>
 </form>
