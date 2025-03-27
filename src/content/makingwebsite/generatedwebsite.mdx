@@ -1,0 +1,67 @@
+---
+tl-title: '👾 18 - Met AI gegenereerde website'
+tl-pos: 18
+tl-summary: 'Sommigen AI tools kunnen een hele website maken, maar zijn deze wel goed?'
+---
+
+# Met AI gegenereerde website
+
+Sommigen AI tools kunnen hele websites genereren. Een voorbeeld hiervan is v0 van Vercel.
+v0 gebruikt altijd NextJS (een React framework), NextJS is een product van Vercel.
+
+Er zijn een hoop tools zoals v0, zoals Glitch, Replit, Cursor, Bubble,
+
+## De chat
+
+v0 maakt websites in een chat. Ik starte met de prompt "Make a simple image & video upload site".
+v0 maakte dan direct gebruik van Vercel Blob, nog een Vercel product. Vercel Blob is in beta,
+ongeschikt voor productieomgevingen.
+
+## Versie 1
+
+Versie 1 is erg simpel, maar werkt niet. De grootste bug is dat de app probeert het MIME-type te lezen
+van een JS File via `.contentType` (van de Blob class), het probleem hierbij is dat `.contentType` niet
+bestaat en nooit heeft bestaan. Het is `.type` en dat is al zo
+[sinds de introductie van File in 2006](https://www.w3.org/standards/history/FileAPI/).
+
+Om het te kunnen demonstreren in dit artikel heb ik de applicatie opnieuw geimplementeerd en de bugs opgelost.
+
+import { HomePageV1 } from "../../components/GeneratedWebsite/HomePageV1.jsx";
+
+<HomePageV1 client:visible />
+
+v0 heeft besloten elke 10 seconden de lijst met bestanden op te vragen van Vercel Blob.
+Dit wordt duur. Een betere oplossing is long-polling of websockets, maar dat is zo goed als
+onmogelijk met NextJS.
+
+## Versie 2
+
+Voor versie 2 vroeg ik of die simpele gebruikersauthenticatie toe kon voegen. Voor nu was het
+goed dat v0 een lijst met bcrypt hashes in een array propte, dit deed ik vooral zodat ik niet
+nog een Vercel product weg moest patchen.
+
+v0 produceerde een authenticatie systeem met middleware authenticatie. Hierdoor is de applicatie
+kwetsbaar voor CVE-2025-29927, een 9.1/10 beveiligingsprobleem waarbij middleware kan worden
+omzeild met de header `x-middleware-subrequest`.
+
+Ook leuk is dat de bcrypt hashes die v0 genereerde helemaal niet kloppen. De AI doet maar iets
+dat op een bcrypt hash lijkt, de voorbeeldwachtwoorden (password[0-3]) zijn hierdoor niet geldig.
+Na het veranderen van de bcrypt hash in de code werkt de website alsnog niet, na inloggen gaat
+de gebruiker heel eventjes naar de thuispagina, maar dan weer naar de inlog pagina.
+
+Dit probleem komt door het feit dat het een backend-functie op een andere domeinnaam gebruikt,
+standaard staat gedeeld cookie gebruik uit in de meeste browsers. Dit is het niet waard om op
+te lossen.
+
+## Conclusie
+
+De applicatie is gevuld met bugs en heeft een erg beveiligingsprobleem. Een echte vibe-coder
+(software ontwikkelaar zonder technische kennis die alleen gebruik maakt van AI tools zoals v0 en Cursor)
+zal deze problemen misschien niet kunnen pakken, begrijpen of oplossen.
+
+Vorige week was er een echte vibe coder bezig op Twitter, de slimmerd had backend tokens opgeslagen in
+het frontend waardoor iedereen alles kon doen. De rest van technisch Twitter en ik hebben hier goed
+om kunnen lachen, maar het is een gigantisch risico voor mensen die blind vertrouwen op AI.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">guys, i&#39;m under attack<br /><br />ever since I started to share how I built my SaaS using Cursor<br /><br />random thing are happening, maxed out usage on api keys, people bypassing the subscription, creating random shit on db<br /><br />as you know, I&#39;m not technical so this is taking me longer that usual to…</p>&mdash; leo (@leojr94_) <a href="https://twitter.com/leojr94_/status/1901560276488511759?ref_src=twsrc%5Etfw">March 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">i&#39;m shutting down my app 😑<br /><br />Cursor just keeps breaking other parts of the code<br /><br />you guys were right, I shouldn’t have deployed unsecured code to production<br /><br />I&#39;ll just rebuild it with Bubble, a more user friendly and secure platform for non techies like me<br /><br />I appreciate everyone…</p>&mdash; leo (@leojr94_) <a href="https://twitter.com/leojr94_/status/1902537756674318347?ref_src=twsrc%5Etfw">March 20, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

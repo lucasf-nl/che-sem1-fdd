@@ -8,6 +8,8 @@
     let lastname = $state("");
     let content = $state("");
 
+    let verstuurd = $state(false);
+
     function en(i) {
         return encodeURIComponent(i)
     }
@@ -18,18 +20,41 @@
     <ContactFormInput type="text" id="firstname" name="Voornaam" required bind:value={firstname} />
     <ContactFormInput type="text" id="lastname" name="Achternaam" required bind:value={lastname} />
     <ContactFormInput cclass="col-span-2" type="textbox" id="content" name="Inhoud" required bind:value={content} />
+
+    {#if verstuurd}
+        <p>Verstuurd</p>
+    {/if}
+
     <button on:click={(e) => {
         e.preventDefault();
         console.log(">_<");
         console.log({ subject, firstname, lastname, content });
-        window.open(
-            // er bestaan inderdaad betere manieren om een URI op te stellen. maar daar is geen
-            // shorthand syntax voor, dus dan krijg je dit :3
-            // Voor- en achternaam worden als email headers toegevoegd. zou door een email client
-            // kunnen worden gelezen. in de praktijk gebeurt dat nauwelijks, maar het gaat om het
-            // principe.
-            `mailto:lmfehres@student.che.nl?subject=${en(subject)}&body=${en(content)
-            }&x-lmfehres-from-firstname=${en(firstname)}&x-lmfehres-from-lastname=${en(lastname)}`
-        )
+
+        fetch("https://script.google.com/macros/s/AKfycbzCOOgyHg-C6XaTn2kShqOCbTRojC4Y8k0hVdEbty9rHwOr7jDf9Ih36y0ylMvDUFJY/exec", {
+            method: "POST",
+            body: JSON.stringify({ subject, firstname, lastname, content })
+        }).then(() => {
+            verstuurd = true;
+            subject = ""
+            firstname = ""
+            lastname = ""
+            content  = ""
+        }).catch(() => {
+            verstuurd = true;
+            subject = ""
+            firstname = ""
+            lastname = ""
+            content  = ""
+        });
+
+        // window.open(
+        //     // er bestaan inderdaad betere manieren om een URI op te stellen. maar daar is geen
+        //     // shorthand syntax voor, dus dan krijg je dit :3
+        //     // Voor- en achternaam worden als email headers toegevoegd. zou door een email client
+        //     // kunnen worden gelezen. in de praktijk gebeurt dat nauwelijks, maar het gaat om het
+        //     // principe.
+        //     `mailto:lmfehres@student.che.nl?subject=${en(subject)}&body=${en(content)
+        //     }&x-lmfehres-from-firstname=${en(firstname)}&x-lmfehres-from-lastname=${en(lastname)}`
+        // )
     }}>Verzenden</button>
 </form>
